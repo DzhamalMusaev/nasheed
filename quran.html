@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran & Hadith</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: url('img/a.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        header img {
+            height: 60px;
+            margin-right: 20px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .ayah, .hadith {
+            background: rgba(0, 0, 0, 0.7);
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+        }
+
+        .ayah h3, .hadith h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+
+        .button-panel {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            z-index: 10;
+        }
+
+        .button-panel.left {
+            left: 10px;
+        }
+
+        .button-panel.right {
+            right: 10px;
+        }
+
+        .button-panel button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .button-panel button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-panel button i {
+            font-size: 24px;
+            color: #000000;
+        }
+
+        .button-panel a {
+            text-decoration: none;
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 60px;
+        }
+
+        .ayah p, .hadith p {
+            font-size: 18px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+            color: #ffffff;
+        }
+
+        footer a {
+            color: #ffa500;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav {
+            margin: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            background: #ffa500;
+            color: #000;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .modal-content {
+            background: #222;
+            padding: 20px;
+            border-radius: 10px;
+            color: #fff;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h3 {
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            margin-bottom: 15px;
+        }
+
+        .modal-content .telegram {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-content .telegram i {
+            font-size: 24px;
+            color: #0088cc;
+        }
+
+        .modal-content .telegram a {
+            color: #ffa500;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .modal-content button {
+            background: #ffa500;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-content button:hover {
+            background: #ffcc33;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="img/logo.png" alt="Website Logo">
+        <h1>Quran & Hadith</h1>
+    </header>
+
+    <div class="button-panel left">
+        <a href="#" onclick="openDonationModal()"><button><i class="fas fa-donate"></i></button></a>
+        <a href="quran.html"><button><i class="fas fa-quran"></i></button></a>
+    </div>
+
+    <div class="button-panel right">
+        <a href="index.html"><button><i class="fas fa-music"></i></button></a>
+        <button onclick="openModal()"><i class="fas fa-info-circle"></i></button>
+    </div>
+
+
+    <nav>
+        <a href="#quran">Quran</a>
+        <a href="#hadith">Hadith</a>
+    </nav>
+
+    <div id="quran" class="container">
+        <h2>Аяты из Корана</h2>
+
+        <div class="ayah">
+            <h3>Сура Аль-Фатиха, Аят 1</h3>
+            <p>Во имя Аллаха, Милостивого, Милосердного.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аль-Бакара, Аят 2</h3>
+            <p>Эта Книга, в которой нет сомнения, является руководством для богобоязненных.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аль-Ихляс, Аят 1</h3>
+            <p>Скажи: Он — Аллах, Единственный.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аль-Кахф, Аят 10</h3>
+            <p>Господь наш! Даруй нам от Себя милость и приготовь для нас в нашем деле прямой путь.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аз-Зумар, Аят 53</h3>
+            <p>Скажи: «О Мои рабы, которые переступили границы в отношении самих себя! Не отчаивайтесь в милости Аллаха.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Ан-Нур, Аят 35</h3>
+            <p>Аллах — Свет небес и земли.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аль-Мульк, Аят 13</h3>
+            <p>И скрывайте свои слова или объявляйте их, ведь Он знает сокровенное.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аш-Шура, Аят 19</h3>
+            <p>Аллах милостив к Своим рабам и уделяет тому, кому пожелает.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Ат-Тауба, Аят 51</h3>
+            <p>Скажи: «Нас постигнет только то, что предопределил нам Аллах.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Юсуф, Аят 86</h3>
+            <p>Я лишь жалуюсь о своей скорби и печали Аллаху.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аль-Анкабут, Аят 69</h3>
+            <p>А тех, которые борются ради Нас, Мы непременно поведем нашими путями.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Ан-Ниса, Аят 36</h3>
+            <p>Поклоняйтесь Аллаху и не предавайте Ему сотоварищей.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аль-Ахзаб, Аят 21</h3>
+            <p>В Посланнике Аллаха был прекрасный пример для вас.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Аль-Маида, Аят 8</h3>
+            <p>Не давайте ненависти к людям склонять вас к несправедливости.</p>
+        </div>
+        <div class="ayah">
+            <h3>Сура Ат-Тагабун, Аят 11</h3>
+            <p>Не постигнет бедствие, кроме как с дозволения Аллаха.</p>
+        </div>
+
+        <p>Больше аятов и хадисов вы найдете на моем Telegram-канале: <a href="https://t.me/yourtelegram">https://t.me/yourtelegram</a></p>
+    </div>
+
+    <div id="hadith" class="container">
+        <h2>Хадисы</h2>
+
+        <div class="hadith">
+            <h3>Сахих аль-Бухари, Книга 1, Хадис 1</h3>
+            <p>Дела оцениваются только по намерениям, и каждому человеку воздастся согласно его намерению.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сахих Муслим, Книга 2, Хадис 3</h3>
+            <p>Аллах не смотрит на вашу внешность и богатство, но смотрит на ваши сердца и дела.</p>
+        </div>
+        <div class="hadith">
+            <h3>Джами ат-Тирмизи, Книга 27, Хадис 8</h3>
+            <p>Лучшие из вас — те, кто изучает Коран и обучает ему.</p>
+        </div>
+        <div class="hadith">
+            <h3>Рияд ас-Салихин, Книга 1, Хадис 23</h3>
+            <p>Никто из вас не уверует, пока не полюбит для своего брата того, что любит для себя.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сунан Ибн Маджа, Том 5, Книга 37, Хадис 4290</h3>
+            <p>Передавайте от меня даже один аят.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сахих Муслим, Книга 48, Хадис 17</h3>
+            <p>Пророк сказал: «Тот, кто верит в Аллаха и в Судный день, пусть говорит благое или молчит.»</p>
+        </div>
+        <div class="hadith">
+            <h3>Сунан ат-Тирмизи, Книга 45, Хадис 2449</h3>
+            <p>Истинное богатство — это богатство души.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сахих аль-Бухари, Книга 76, Хадис 1</h3>
+            <p>Тот, кто совершает молитву ночью, будет вознаграждён.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сунан Абу Дауд, Книга 41, Хадис 4901</h3>
+            <p>Пророк сказал: «Не будет человек истинно верующим, пока не пожелает для своего брата того же, что и для себя.»</p>
+        </div>
+        <div class="hadith">
+            <h3>Сахих Муслим, Книга 4, Хадис 1182</h3>
+            <p>Аллах прощает тому, кто прощает других.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сахих аль-Бухари, Книга 81, Хадис 691</h3>
+            <p>Пророк сказал: «Мусульманин — брат мусульманину.»</p>
+        </div>
+        <div class="hadith">
+            <h3>Джами ат-Тирмизи, Книга 25, Хадис 10</h3>
+            <p>Не завидуйте друг другу и не ненавидьте друг друга.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сахих аль-Бухари, Книга 34, Хадис 352</h3>
+            <p>Тот, кто облегчает жизнь другому, Аллах облегчит его жизнь в Судный день.</p>
+        </div>
+        <div class="hadith">
+            <h3>Сахих Муслим, Книга 32, Хадис 622</h3>
+            <p>Богатый человек — не тот, кто имеет много имущества, а тот, кто доволен тем, что имеет.</p>
+        </div>
+        <div class="hadith">
+            <h3>Рияд ас-Салихин, Книга 5, Хадис 756</h3>
+            <p>Пусть никто из вас не говорит: «Если бы я сделал это, то произошло бы то.»</p>
+        </div>
+
+        <p>Больше аятов и хадисов вы найдете на моем Telegram-канале: <a href="https://t.me/yourtelegram">https://t.me/yourtelegram</a></p>
+    </div>
+
+    <footer>
+        <p>Created with ❤️ by <a href="https://t.me/yourtelegram">Your Name</a></p>
+    </footer>
+
+
+    <div class="modal" id="aboutModal">
+        <div class="modal-content">
+            <h3>ISTOKI NASHEEDS</h3>
+            <p>Ассаламу алейкум уа рахматуллахи уа баракатух, уважаемые братья и сестры! Этот сайт создан с целью просвещения! Хватит слушать музыку, слушайте Коран, а в крайнем случае Нашиды! Пусть ваши сердца наполняются миром, а души обретают покой, когда вы слышите слова Аллаха.</p>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <div class="modal" id="donationModal">
+        <div class="modal-content">
+            <h3>Поддержите автора</h3>
+            <p>Банковская карта: <strong>1234 5678 9012 3456</strong></p>
+            <div class="telegram">
+                <i class="fab fa-telegram"></i>
+                <a href="https://t.me/yourtelegram">Поддержите подпиской на мой Telegram-канал с нашидами!</a>
+            </div>
+            <p>Баракаллаху фикум ❤️</p>
+            <button onclick="closeDonationModal()">Закрыть</button>
+        </div>
+    </div>
+
+
+    <script>
+        function openModal() {
+            document.getElementById('aboutModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('aboutModal').style.display = 'none';
+        }
+
+        function openDonationModal() {
+            document.getElementById('donationModal').style.display = 'flex';
+        }
+
+        function closeDonationModal() {
+            document.getElementById('donationModal').style.display = 'none';
+        }
+
+        function openModal() {
+            document.getElementById('aboutModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('aboutModal').style.display = 'none';
+        }
+
+        
+    </script>
+
+</body>
+</html>
